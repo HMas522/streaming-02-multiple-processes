@@ -5,3 +5,20 @@ This will clear the console output.
 Run the file once while the tasks are longer. 
 
 Copy and paste the terminal results (when task_duration is 3) here.
+
+2024-05-12 15:26:46,280 - INFO - Called recreate_database().       
+2024-05-12 15:26:46,280 - INFO - Called drop_table().
+2024-05-12 15:26:46,293 - INFO - Table 'pets' dropped successfully.
+2024-05-12 15:26:46,293 - INFO - Called create_table().
+2024-05-12 15:26:46,312 - INFO - Table 'pets' created successfully.
+2024-05-12 15:26:46,435 - INFO - Called process_one().
+2024-05-12 15:26:46,435 - INFO -   Called insert_pet() with process=P1, name=Ace, breed=Dog.
+2024-05-12 15:26:46,436 - INFO - Called process_two().
+2024-05-12 15:26:46,436 - INFO -   Called insert_pet() with process=P2, name=Cooper, breed=Rabbit.
+2024-05-12 15:26:46,441 - INFO - Called process_three().
+2024-05-12 15:26:46,441 - INFO -   Called insert_pet() with process=P3, name=Emma, breed=Rabbit.
+2024-05-12 15:26:49,459 - INFO -   Called insert_pet() with process=P1, name=Buddy, breed=Dog.
+2024-05-12 15:26:52,011 - ERROR - ERROR while P2 inserting pet Cooper: database is locked
+2024-05-12 15:26:52,012 - INFO -   Called insert_pet() with process=P2, name=Dingo, breed=Dog.
+2024-05-12 15:26:52,043 - ERROR - ERROR while P3 inserting pet Emma: database is locked
+2024-05-12 15:26:52,044 - INFO -   Called insert_pet() with process=P3, name=Felix, breed=Cat.
