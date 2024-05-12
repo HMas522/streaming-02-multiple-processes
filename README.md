@@ -1,7 +1,11 @@
 # streaming-02-multiple-processes
 
 ## Hayley Massey
-# 12 May 2024
+## 12 May 2024
+
+## Resources
+
+https://www.kaggle.com/datasets/alessandrolobello/gasoline-hourly-price-tracker-from-2022?resource=download&select=Hourly_Gasoline_Prices.csv
 
 > Multiple processes accessing a shared resource concurrently
 
