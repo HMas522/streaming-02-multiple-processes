@@ -95,7 +95,7 @@ if __name__ == "__main__":
     try:
         logging.info("===============================================")
         logging.info("Starting fake streaming process.")
-        stream_row(INPUT_FILE_NAME, ADDRESS_TUPLE)
+        stream_row(INPUT_FILE_NAME,OUTPUT_FILE_NAME, ADDRESS_TUPLE)
         logging.info("Streaming complete!")
         logging.info("===============================================")
     except Exception as e:
