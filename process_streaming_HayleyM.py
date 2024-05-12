@@ -36,17 +36,18 @@ logging.basicConfig(
 HOST = "localhost"
 PORT = 9999
 ADDRESS_TUPLE = (HOST, PORT)
-INPUT_FILE_NAME = "batchfile_0_farenheit.csv"
+INPUT_FILE_NAME = "Hourly_Gasoline_Prices.csv"
+OUTPUT_FILE_NAME = "out9.txt"
 
 # Define program functions (bits of reusable code)
 
 
 def prepare_message_from_row(row):
     """Prepare a binary message from a given row."""
-    Year, Month, Day, Time, TempF = row
+    Id, isSelf, Price, Date = row
     # use an fstring to create a message from our data
     # notice the f before the opening quote for our string?
-    fstring_message = f"[{Year}, {Month}, {Day}, {Time}, {TempF}]"
+    fstring_message = f"[{Id}, {isSelf}, {Price}, {Date}]"
 
     # prepare a binary (1s and 0s) message to stream
     MESSAGE = fstring_message.encode()
