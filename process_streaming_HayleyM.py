@@ -22,81 +22,41 @@ https://wiki.python.org/moin/UdpCommunication
 import csv
 import socket
 import time
-import logging
+import random
 
 # Set up basic configuration for logging
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
-
-
-# Declare program constants (typically constants are named with ALL_CAPS)
-
+# Define all key items
 HOST = "localhost"
 PORT = 9999
 ADDRESS_TUPLE = (HOST, PORT)
 INPUT_FILE_NAME = "Hourly_Gasoline_Prices.csv"
 OUTPUT_FILE_NAME = "out9.txt"
 
-# Define program functions (bits of reusable code)
-
-
+# Define function to create message from f string from the csv rows
 def prepare_message_from_row(row):
-    """Prepare a binary message from a given row."""
-    Id, isSelf, Price, Date = row
-    # use an fstring to create a message from our data
-    # notice the f before the opening quote for our string?
-    fstring_message = f"[{Id}, {isSelf}, {Price}, {Date}]"
+    return f"{','.join(row)}\n".encode()
 
-    # prepare a binary (1s and 0s) message to stream
-    MESSAGE = fstring_message.encode()
-    logging.debug(f"Prepared message: {fstring_message}")
-    return MESSAGE
+# Define function to stream data from input file, ie csv file using socket
+# Use time sleep from time import and random for random import to sleep between 1 or 3 seconds
+def stream_data(input_file_name, output_file_name, address_tuple):
+    with open(input_file_name, "r") as input_file, open(output_file_name, "w") as output_file:
+        reader = csv.reader(input_file)
+        header = next(reader)
+        output_file.write(','.join(header) + '\n')
 
+        sock_object = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-def stream_row(input_file_name, address_tuple):
-    """Read from input file and stream data."""
-    logging.info(f"Starting to stream data from {input_file_name} to {address_tuple}.")
-
-    # Create a file object for input (r = read access)
-    with open(input_file_name, "r") as input_file:
-        logging.info(f"Opened for reading: {input_file_name}.")
-
-        # Create a CSV reader object
-        reader = csv.reader(input_file, delimiter=",")
-        
-        header = next(reader)  # Skip header row
-        logging.info(f"Skipped header row: {header}")
-
-        # use socket enumerated types to configure our socket object
-        # Set our address family to (IPV4) for 'internet'
-        # Set our socket type to UDP (datagram)
-        ADDRESS_FAMILY = socket.AF_INET 
-        SOCKET_TYPE = socket.SOCK_DGRAM 
-
-        # Call the socket constructor, socket.socket()
-        # A constructor is a special method with the same name as the class
-        # Use the constructor to make a socket object
-        # and assign it to a variable named `sock_object`
-        sock_object = socket.socket(ADDRESS_FAMILY, SOCKET_TYPE)
-        
         for row in reader:
-            MESSAGE = prepare_message_from_row(row)
-            sock_object.sendto(MESSAGE, address_tuple)
-            logging.info(f"Sent: {MESSAGE} on port {PORT}. Hit CTRL-c to stop.")
-            time.sleep(3) # wait 3 seconds between messages
-
-# ---------------------------------------------------------------------------
-# If this is the script we are running, then call some functions and execute code!
-# ---------------------------------------------------------------------------
+            message = prepare_message_from_row(row)
+            sock_object.sendto(message, address_tuple)
+            output_file.write(','.join(row) + '\n')
+            time.sleep(random.uniform(1, 3))  
 
 if __name__ == "__main__":
     try:
-        logging.info("===============================================")
-        logging.info("Starting fake streaming process.")
-        stream_row(INPUT_FILE_NAME,OUTPUT_FILE_NAME, ADDRESS_TUPLE)
-        logging.info("Streaming complete!")
-        logging.info("===============================================")
+        print("Starting data streaming.")
+        stream_data(INPUT_FILE_NAME, OUTPUT_FILE_NAME, ADDRESS_TUPLE)
+        print("Streaming complete!")
     except Exception as e:
-        logging.error(f"An error occurred: {e}")
+        print(f"An error occurred: {e}")
