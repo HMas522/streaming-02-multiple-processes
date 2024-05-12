@@ -5,3 +5,29 @@ This will clear the console output.
 Run the file once while the tasks are short. 
 
 Copy and paste the terminal results (when task_duration is 0) here.
+
+
+2024-05-12 15:25:07,471 - INFO - Called recreate_database().
+2024-05-12 15:25:07,472 - INFO - Called drop_table().
+2024-05-12 15:25:07,485 - INFO - Table 'pets' dropped successfully.
+2024-05-12 15:25:07,486 - INFO - Called create_table().
+2024-05-12 15:25:07,506 - INFO - Table 'pets' created successfully.
+2024-05-12 15:25:07,632 - INFO - Called process_two().
+2024-05-12 15:25:07,632 - INFO - Called process_one().
+2024-05-12 15:25:07,632 - INFO -   Called insert_pet() with process=P2, name=Cooper, breed=Rabbit.
+2024-05-12 15:25:07,632 - INFO -   Called insert_pet() with process=P1, name=Ace, breed=Dog.
+2024-05-12 15:25:07,633 - INFO - Called process_three().
+2024-05-12 15:25:07,633 - INFO -   Called insert_pet() with process=P3, name=Emma, breed=Rabbit.
+2024-05-12 15:25:07,652 - INFO -   Called insert_pet() with process=P2, name=Dingo, breed=Dog.
+2024-05-12 15:25:07,671 - INFO -   Called insert_pet() with process=P3, name=Felix, breed=Cat.
+2024-05-12 15:25:07,701 - INFO -   Called insert_pet() with process=P1, name=Buddy, breed=Dog.
+2024-05-12 15:25:07,719 - INFO -
+SUCCESS: All processes successfully completed!
+
+Now - increase the task duration (representing
+      the time the task has the database
+      tied up during an insert statement).
+How well do multiple, concurrent processes share a database
+    when each task takes more time?
+How can multiple processes share a resource
+    without interfering with each other?
